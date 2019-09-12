@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #app{
+        margin:50px auto;
+        width:600px;
+    }
+    fieldset{
+        border:1px solid orange;
+        margin-bottom:100px;
+    }
+    fieldset input{
+        width:200px;
+        height:30px;
+        margin:10px 0;
+    }
+    table{
+        width:600px;
+        border:2px solid orangered;
+        text-align:center;
+    }
+    thead{
+        background-color: orangered;
+    }
+    </style>
+</head>
+<script src="../lib/vue.js"></script>
+<script>
+     window.onload=function(){
+    new Vue({
+    el:'#app',
+    data:{
+       persons:[{
+           name:"张三",
+           age:20,
+           sex:"男",
+           phone:"138563421666"
+       },
+       {
+           name:"李四",
+           age:23,
+           sex:"男",
+           phone:"13856345551666"
+       },{
+           name:"王二",
+           age:29,
+           sex:"男",
+           phone:"1388863421666"
+       },{
+           name:"李雪",
+           age:20,
+           sex:"女",
+           phone:"137563421666"
+ }],
+ student:{
+           name:"",
+           age:"",
+           sex:"男",
+           phone:""
+ }
+    },
+    methods:{
+        addStudent:function(){
+        if(this.student.name===""){
+            alert("姓名不能为空");
+            return;
+        };
+        if(this.student.age<=0){
+            alert("请输入正确的年龄");
+            return;
+        };
+        if(this.student.phone===""){
+            alert("手机号码不正确");
+            return;
+        };
+        this.persons.unshift(this.student);
+        this.student={name:"",age:"",sex:"男",phone:""}
+        },
+        delet:function(index){
+            this.persons.splice(index,1);
+        }
+    }
+})
+     }
+</script>
+<body>
+    <div id="app">
+        <fieldset>
+            <legend>拇指哥学生录入系统</legend>
+            <div>
+                <span>姓名</span>
+                <input type="text" placeholder="请输入姓名" v-model="student.name">
+            </div>
+            <div>
+                <span>年龄</span>
+                <input type="text" placeholder="请输入年龄" v-model="student.age">
+            </div>
+            <div>
+                <span>性别</span>
+                <select v-model="student.sex">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+            <div>
+                <span>手机</span>
+                <input type="text" placeholder="请输入手机号" v-model="student.phone">
+            </div>
+            <button v-on:click="addStudent">创建新用户</button>
+        </fieldset>
+        <table>
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>手机</th>
+                <th>删除</th>
+            </tr>
+        </thead>
+            <tbody>
+            <tr v-for="(person,index) in persons">
+                <td>{{person.name}}</td>
+                <td>{{person.age}}</td>
+                <td>{{person.sex}}</td>
+                <td>{{person.phone}}</td>
+                <td>
+                    <button v-on:click="delet(index)">删除</button>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</body>
+</html>
