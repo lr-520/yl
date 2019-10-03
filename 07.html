@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>组件refs和事件处理</title>
+<!-- <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script> -->
+<script src='../js/babel.min.js' ></script>
+<script src='../js/react.development.js' ></script>
+<script src='../js/react-dom.development.js' ></script>
+<script src='../js/prop-types.js'></script>
+</head>
+<body>
+<div id="example1"></div>
+<div id="example2"></div>
+<script type="text/babel">
+
+//定义组件
+class Lori extends React.Component{
+    constructor(props){
+        super(props)
+        this.showInput=this.showInput.bind(this)
+        this.handleBlur=this.handleBlur.bind(this)
+    }
+    showInput(){
+        // const input=this.refs.content
+        alert(this.input.value)
+    }
+    handleBlur(event){
+        alert(event.target.value)
+    }
+    render(){
+        return (
+            <div>
+            <input type="text" ref="content"/>&nbsp;
+            <input type="text" ref={input =>this.input=input}/>&nbsp;
+            <button onClick={this.showInput}>提示输入</button>
+            <input type="text" placeholder="失去焦点提示内容" onBlur={this.handleBlur}/>
+            </div>
+        )
+    }
+}
+//渲染组件
+ReactDOM.render(<Lori />,document.getElementById('example1'))
+</script>
+</body>
+</html>
